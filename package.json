@@ -1,5 +1,5 @@
 {
-  "name": "gbx2-shared",
+  "name": "gbx2-boiler",
   "version": "0.1.0",
   "private": true,
   "dependencies": {

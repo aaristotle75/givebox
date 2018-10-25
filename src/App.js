@@ -56,7 +56,7 @@ class App extends Component {
       <div className="App">
         <AppContext.Provider
           value={{
-            title: "Givebox Shared"
+            title: "Givebox Boiler"
           }}
         >
         <Routes loadComponent={this.loadComponent} />
