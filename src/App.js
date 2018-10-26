@@ -53,14 +53,17 @@ class App extends Component {
 
   render() {
     return (
-      <div className="App">
-        <AppContext.Provider
-          value={{
-            title: "Givebox Boiler"
-          }}
-        >
-        <Routes loadComponent={this.loadComponent} />
-        </AppContext.Provider>
+      <div className={this.state.mobile ? 'mobile' : 'desktop'}>
+        <div id="app-root">
+          <AppContext.Provider
+            value={{
+              title: "Givebox Boiler"
+            }}
+          >
+            <Routes loadComponent={this.loadComponent} />
+          </AppContext.Provider>
+        </div>
+        <div id="modal-root"></div>
       </div>
     );
   }

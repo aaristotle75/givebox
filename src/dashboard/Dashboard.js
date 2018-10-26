@@ -1,4 +1,6 @@
 import React, { Component } from 'react';
+import { Form } from 'givebox-lib';
+import TestForm from './TestForm';
 
 export default class Dashboard extends Component {
 
@@ -15,6 +17,14 @@ export default class Dashboard extends Component {
         <h6>Header 6</h6>
         <p>Paragraph</p>
         <p>Paragraph<span className="smallText">with small caption text</span></p>
+        <Form
+          name="testForm"
+          defaults={{
+            required: false
+          }}
+        >
+          <TestForm />
+        </Form>
       </div>
     )
   }
