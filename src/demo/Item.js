@@ -2,16 +2,13 @@ import React, { Component } from 'react';
 import { Link } from 'react-router-dom';
 import { Form } from 'givebox-lib';
 import ItemForm from './ItemForm';
-import { AppContext } from '../App';
+import { AppContext } from 'App';
 
 export default class Item extends Component {
 
   constructor(props) {
     super(props);
     this.loadAction = this.loadAction.bind(this);
-  }
-
-  componentWillUnmount() {
   }
 
   loadAction() {
