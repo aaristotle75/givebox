@@ -150,7 +150,7 @@ class App extends Component {
         <div id="app-root">
           <AppContext.Provider
             value={{
-              title: `Givebox lib - ${this.state.org.name}`
+              title: `Givebox Boiler - ${this.state.org.name}`
             }}
           >
             <Routes
