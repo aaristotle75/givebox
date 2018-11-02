@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { AppContext } from 'App';
+import { AppContext } from '../App';
 
 export default class Header extends Component {
 
@@ -11,11 +11,11 @@ export default class Header extends Component {
     return (
       <AppContext.Consumer>
       {(context) => (
-        <header className="top">
-          <div className="leftSide">
+        <header className='top'>
+          <div className='leftSide'>
             {context.title}
           </div>
-          <div className="rightSide">
+          <div className='rightSide'>
             <ul>
               <li>Right side</li>
             </ul>

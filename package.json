@@ -1,8 +1,9 @@
 {
-  "name": "gbx2-boiler",
+  "name": "givebox-boiler",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
+    "givebox-lib": "^0.1.7"
   },
   "scripts": {
     "start": "react-scripts start",
@@ -24,7 +25,8 @@
     "ajv": "^6.0.0",
     "axios": "^0.18.0",
     "env-cmd": "^8.0.2",
-    "givebox-lib": "file:../givebox-lib",
+    "eslint-config-react-app": "^3.0.4",
+    "has": "^1.0.3",
     "node-sass": "^4.9.4",
     "react": "^16.6.0",
     "react-dom": "^16.6.0",
@@ -37,7 +39,6 @@
     "redux-devtools-extension": "^2.13.5",
     "redux-logger": "^3.0.6",
     "redux-thunk": "^2.3.0",
-    "source-map-explorer": "^1.6.0",
-    "eslint-config-react-app": "^3.0.4"
+    "source-map-explorer": "^1.6.0"
   }
 }
