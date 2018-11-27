@@ -15,10 +15,10 @@ class ItemsList extends Component {
   }
 
   formatTableData(data, match) {
-    let fdata = {};
-    let headers = [];
-    let rows = [];
-    //let footer = [];
+    const fdata = {};
+    const headers = [];
+    const rows = [];
+    //const footer = [];
 
     headers.push(
       { name: 'Since', width: '10%', sort: 'createdAt' },
@@ -31,7 +31,7 @@ class ItemsList extends Component {
 
     if (!util.isEmpty(data)) {
       data.forEach(function(value, key) {
-        let createdAt = util.getDate(value.createdAt, 'MM/DD/YYYY');
+        const createdAt = util.getDate(value.createdAt, 'MM/DD/YYYY');
         rows.push([createdAt, value.firstName, value.lastName, value.email ? value.email : 'n/a', <ActionsMenu match={match} id={value.ID} />]);
       });
     }
