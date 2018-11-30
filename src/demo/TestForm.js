@@ -29,7 +29,7 @@ export default class TestForm extends Component {
         <h2>Form Elements</h2>
         <div className="formWrapper">
         {this.props.textField('custID', { type: 'hidden' })}
-        {this.props.textField('name', { placeholder: 'Enter Name' })}
+        {this.props.textField('name', { label: 'Name', placeholder: 'Enter Name' })}
         {this.props.creditCardGroup({ required: false, debug: false})}
         {this.props.richText('content', { required: false, label: 'Rich Text', placeholder: 'Please write something...', modal: true, modalLabel: 'Open content editor' })}
         {this.props.choice('choice', { label: 'Choice 1', value: 'choice1', type: 'radio', checked: 'choice2', debug: false })}

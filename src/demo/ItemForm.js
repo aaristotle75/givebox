@@ -11,7 +11,7 @@ class ItemForm extends Component {
   }
 
   componentDidMount() {
-    this.props.getResource(this.props.name, {id: ['org', this.props.id]});
+    this.props.getResource(this.props.name, {id: [this.props.id]});
   }
 
   componentWillUnmount() {
@@ -39,7 +39,7 @@ class ItemForm extends Component {
     this.props.sendResource(
       'orgCustomer',
       {
-        id: ['org', this.props.id],
+        id: [this.props.id],
         method: 'patch',
         data: data,
         callback: this.processCallback.bind(this)
