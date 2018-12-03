@@ -138,6 +138,7 @@ class App extends Component {
           loader={this.loader}
           routeProps={options.routeProps}
           mobile={this.state.mobile}
+          loadComponent={this.loadComponent}          
         />
       </div>
     )

@@ -1,6 +1,6 @@
-import React, { Component } from 'react';
+import React, {Component} from 'react';
 import { connect } from 'react-redux';
-import { getResource, sendResource, util } from 'givebox-lib';
+import { getResource, sendResource, util, removeResource } from 'givebox-lib';
 
 class ItemForm extends Component {
 
@@ -11,10 +11,11 @@ class ItemForm extends Component {
   }
 
   componentDidMount() {
-    this.props.getResource(this.props.name, {id: [this.props.id]});
-  }
-
-  componentWillUnmount() {
+    if (this.props.id !== 'new') {
+      this.props.getResource(this.props.name, {id: [this.props.id]});
+    } else {
+      this.props.removeResource(this.props.name);
+    }
   }
 
   formSavedCallback() {
@@ -37,7 +38,7 @@ class ItemForm extends Component {
       if (value.autoReturn) data[key] = value.value;
     });
     this.props.sendResource(
-      'orgCustomer',
+      this.props.name,
       {
         id: [this.props.id],
         method: 'patch',
@@ -54,19 +55,19 @@ class ItemForm extends Component {
     } = this.props;
 
     if (util.isLoading(item, this.props.id)) {
-      return this.props.loader(`trying to load customer resource from ${routeProps.match.url}`);
+      return this.props.loader(`trying to load resource from ${routeProps.match.url}`);
     }
 
-    const data = item.data;
+    const data = this.props.id !== 'new' ? item.data : null;
 
     return (
       <div>
-        <h2>Customer Form</h2>
-        {this.props.textField('cusID', {type: 'hidden', value: data.ID})}
-        {this.props.textField('firstName', {placeholder: 'Enter First Name', required: true, value: data.firstName})}
-        {this.props.textField('lastName', {placeholder: 'Enter Last Name', required: true, value: data.lastName})}
-        {this.props.textField('email', {placeholder: 'Enter Email', required: true, value: data.email})}
-        {this.props.textField('notes', {placeholder: 'Enter Notes', maxLength: 255, value: data.notes})}
+        <h2>Form {this.props.id}</h2>
+        {this.props.textField('bankAccountID', {type: 'hidden', value: util.getValue(data, 'ID')})}
+        {this.props.dropdown('kind', {options: [{primaryText: 'Deposit Account', value: 'deposit'}, {primaryText: 'Vendor Account', value: 'payee'}], value: util.getValue(data, 'kind'), selectLabel: 'Select Account'})}
+        {this.props.textField('name', {label: 'Name', placeholder: 'Enter Account Name', required: true, value: util.getValue(data, 'name')})}
+        {this.props.textField('number', {placeholder: 'Account Number', required: true, value: util.getValue(data, 'last4')})}
+        {this.props.textField('routingNumber', {placeholder: 'Routing Number', required: true, value: util.getValue(data, 'routingNumber'), maxLength: 9})}
         {this.props.saveButton(this.processForm)}
       </div>
     )
@@ -79,8 +80,8 @@ function mapStateToProps(state, props) {
   }
 }
 
-
 export default connect(mapStateToProps, {
   getResource,
-  sendResource
+  sendResource,
+  removeResource
 })(ItemForm)

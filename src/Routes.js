@@ -21,7 +21,8 @@ class Routes extends Component {
 
     return (
       <div>
-        <ModalRoute id='exportRecords' component={() => loadComponent('modal/lib/common/Export', {useProjectRoot: false})} effect='superScaled' style={{minHeight: 100}}  />
+        <ModalRoute  id='feesGlossary' component={() => loadComponent('modal/glossary/Fees', {useProjectRoot: false})} effect='3DFlipVert' style={{ width: '50%' }} />
+        <ModalRoute  id='financeGlossary' component={() => loadComponent('modal/glossary/Finance', {useProjectRoot: false})} effect='3DFlipVert' style={{ width: '50%' }} />
         <Router>
           <Route
             render={({ location }) => (
@@ -41,6 +42,8 @@ class Routes extends Component {
                         <Route exact path='/list' render={(props) => loadComponent('demo/ItemsList', {routeProps: props})}  />
                         <Route exact path='/list/:itemID' render={(props) => loadComponent('demo/Item', {routeProps: props})} />
                         <Route exact path={`/list/:itemID/:action`} render={(props) => loadComponent('demo/Item', {routeProps: props})} />
+                        <Route path='/charts' render={(props) => loadComponent('demo/Charts')}  />
+                        <Route exact path='/transactions' render={(props) => loadComponent('demo/Transactions', {routeProps: props})}  />
                         <Route path='/about' render={(props) => loadComponent('demo/About')}  />
                         <Route path='/contact' render={(props) => loadComponent('demo/Contact')}  />
                         <Route render={() => <div>Error</div>} />

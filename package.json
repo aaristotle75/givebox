@@ -3,7 +3,9 @@
   "version": "0.1.0",
   "private": true,
   "dependencies": {
-    "givebox-lib": "^1.0.0"
+    "givebox-lib": "file:../givebox-lib",
+    "moment": "^2.22.2",
+    "recharts": "^1.4.1"
   },
   "scripts": {
     "start": "react-scripts start",
