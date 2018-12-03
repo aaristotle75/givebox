@@ -5,7 +5,7 @@ import { Form } from 'givebox-lib';
 export default class Dashboard extends Component {
 
   render() {
-
+    
     return (
       <div>
         Dashboard

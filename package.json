@@ -1,5 +1,5 @@
 {
-  "name": "givebox-boiler",
+  "name": "givebox-cloud",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -8,7 +8,7 @@
     "recharts": "^1.4.1"
   },
   "scripts": {
-    "start": "react-scripts start",
+    "start": "PORT=4012 react-scripts start",
     "build": "react-scripts build",
     "build:staging": "env-cmd .env.staging npm run build",
     "test": "react-scripts test",

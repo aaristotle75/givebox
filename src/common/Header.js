@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import { AppContext } from 'App';
+import { ModalLink } from 'givebox-lib';
 
 export default class Header extends Component {
 
@@ -17,7 +18,7 @@ export default class Header extends Component {
           </div>
           <div className='rightSide'>
             <ul>
-              <li>Right side</li>
+              <li><ModalLink id='logout'>Logout</ModalLink></li>
             </ul>
           </div>
         </header>

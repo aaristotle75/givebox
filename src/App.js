@@ -3,9 +3,11 @@ import { connect } from 'react-redux';
 import Routes from './Routes';
 import Loadable from 'react-loadable';
 import has from 'has';
-import { resourceProp, Loader, getResource, reloadResource } from 'givebox-lib';
+import { userLogout } from 'redux/actions';
+import { resourceProp, Loader, getResource, sendResource, reloadResource } from 'givebox-lib';
 
 export const AppContext = React.createContext();
+const ENTRY_URL = process.env.REACT_APP_ENTRY_URL;
 
 class App extends Component {
 
@@ -15,6 +17,8 @@ class App extends Component {
     this.authenticate = this.authenticate.bind(this);
     this.initResources = this.initResources.bind(this);
     this.setIndexState = this.setIndexState.bind(this);
+    this.logout = this.logout.bind(this);
+    this.logoutCallback = this.logoutCallback.bind(this);
     this.state = {
       windowWidth: window.innerWidth,
       windowHeight: window.innerHeight,
@@ -53,7 +57,8 @@ class App extends Component {
   authenticate(res, err) {
     if (err) {
       // If no session is found redirect the user to sign in
-      console.log('Err No session found', err);
+      console.error('Err No session found redirect to ', ENTRY_URL);
+      window.location.replace(ENTRY_URL);
     } else {
       // Check if an organization has been returned, if not redirect to main signin
       if (!has(res, 'organization')) {
@@ -138,10 +143,24 @@ class App extends Component {
           loader={this.loader}
           routeProps={options.routeProps}
           mobile={this.state.mobile}
-          loadComponent={this.loadComponent}          
+          loadComponent={this.loadComponent}
+          logout={this.logout}
         />
       </div>
     )
+  }
+
+  logout() {
+    this.props.sendResource(
+      'session', {
+        method: 'delete',
+        callback: this.logoutCallback
+    });
+  }
+
+  logoutCallback() {
+    this.props.userLogout();
+    window.location.replace(ENTRY_URL);
   }
 
   render() {
@@ -176,6 +195,8 @@ function mapStateToProps(state) {
 
 export default connect(mapStateToProps, {
   getResource,
+  sendResource,
   reloadResource,
-  resourceProp
+  resourceProp,
+  userLogout
 })(App);

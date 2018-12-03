@@ -6,12 +6,12 @@ const appReducer = combineReducers({
 })
 
 const rootReducers = (state, action) => {
-  /*
+
   if (action.type === 'USER_LOGOUT') {
     const { routing } = state;
     state = { routing };
   }
-  */
+
   return appReducer(state, action);
 }
 
