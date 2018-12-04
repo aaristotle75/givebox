@@ -24,7 +24,8 @@ class App extends Component {
       windowHeight: window.innerHeight,
       mobile: window.innerWidth < props.mobileBreakpoint ? true : false,
       org: {},
-      user: {}
+      user: {},
+      authenticated: false
     }
   }
 
@@ -60,35 +61,40 @@ class App extends Component {
       console.error('Err No session found redirect to ', ENTRY_URL);
       window.location.replace(ENTRY_URL);
     } else {
-      // Get user info
-      let user;
-      if (has(res, 'masker')) user = res.masker;
-      else user = res.user;
+      console.log(res.user.role);
+      if (res.user.role !== 'user') {
+        window.location.replace(ENTRY_URL);
+      } else {
+        // Authenticate
+        this.setIndexState('authenticated', true);
 
-      this.props.resourceProp('userID', user.ID);
+        // Get user info
+        let user = res.user;
+        this.props.resourceProp('userID', user.ID);
 
-      // Set user info
-      this.setIndexState('user', {
-        userID: user.ID,
-        fullName: user.firstName + ' ' + user.lastName,
-        email: user.email,
-        role: user.role,
-        masker: has(res, 'masker') ? true : false,
-        theme: user.preferences ? user.preferences.cloudTheme : 'light',
-        animations: user.preferences ? user.preferences.animations : false
-      });
+        // Set user info
+        this.setIndexState('user', {
+          userID: user.ID,
+          fullName: user.firstName + ' ' + user.lastName,
+          email: user.email,
+          role: user.role,
+          masker: has(res, 'masker') ? true : false,
+          theme: user.preferences ? user.preferences.cloudTheme : 'light',
+          animations: user.preferences ? user.preferences.animations : false
+        });
 
-      // Get init collection of resources
-      this.initResources();
+        // Get init collection of resources
+        this.initResources();
+      }
     }
   }
 
   initResources() {
   }
 
-  loader(msg) {
+  loader(msg, className = '') {
     return (
-      <Loader msg={msg} forceText={process.env.NODE_ENV !== 'production' && true} />
+      <Loader className={className} msg={msg} forceText={process.env.NODE_ENV !== 'production' && true} />
     )
   }
 
@@ -167,6 +173,7 @@ class App extends Component {
               {...this.props}
               loader={this.loader}
               loadComponent={this.loadComponent}
+              authenticated={this.state.authenticated}
             />
           </AppContext.Provider>
         </div>
