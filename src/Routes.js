@@ -11,11 +11,10 @@ class Routes extends Component {
 
     const {
       loadComponent,
-      session,
-      org
+      session
     } = this.props;
 
-    if (util.isLoading(session) || util.isLoading(org)) {
+    if (util.isLoading(session)) {
       return this.props.loader('Trying to load initial resources: session and org');
     }
 
@@ -39,7 +38,8 @@ class Routes extends Component {
                   <TransitionGroup>
                     <CSSTransition key={location.key} classNames='fade' timeout={300}>
                       <Switch location={location}>
-                        <Route path='/dashboard' render={(props) => loadComponent('demo/Dashboard')}  />
+                        <Route path='/dashboard' render={(props) => loadComponent('dashboard/Dashboard')}  />
+                        {/*
                         <Route exact path='/list' render={(props) => loadComponent('demo/ItemsList', {routeProps: props})}  />
                         <Route exact path='/list/:itemID' render={(props) => loadComponent('demo/Item', {routeProps: props})} />
                         <Route exact path={`/list/:itemID/:action`} render={(props) => loadComponent('demo/Item', {routeProps: props})} />
@@ -47,7 +47,8 @@ class Routes extends Component {
                         <Route exact path='/transactions' render={(props) => loadComponent('demo/Transactions', {routeProps: props})}  />
                         <Route path='/about' render={(props) => loadComponent('demo/About')}  />
                         <Route path='/contact' render={(props) => loadComponent('demo/Contact')}  />
-                        <Route render={() => <div>Error</div>} />
+                        */}
+                        <Route render={(props) => loadComponent('common/Error')} />
                       </Switch>
                     </CSSTransition>
                   </TransitionGroup>

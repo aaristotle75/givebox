@@ -60,41 +60,30 @@ class App extends Component {
       console.error('Err No session found redirect to ', ENTRY_URL);
       window.location.replace(ENTRY_URL);
     } else {
-      // Check if an organization has been returned, if not redirect to main signin
-      if (!has(res, 'organization')) {
-        console.log('redirect to signin');
-      } else {
-        // Set the selected org
-        this.props.resourceProp('orgID', res.organization.ID);
-        this.setIndexState('org', { name: res.organization.name });
+      // Get user info
+      let user;
+      if (has(res, 'masker')) user = res.masker;
+      else user = res.user;
 
-        // Check if this is a masquerade
-        let user;
-        if (has(res, 'masker')) user = res.masker;
-        else user = res.user;
+      this.props.resourceProp('userID', user.ID);
 
-        this.props.resourceProp('userID', user.ID);
+      // Set user info
+      this.setIndexState('user', {
+        userID: user.ID,
+        fullName: user.firstName + ' ' + user.lastName,
+        email: user.email,
+        role: user.role,
+        masker: has(res, 'masker') ? true : false,
+        theme: user.preferences ? user.preferences.cloudTheme : 'light',
+        animations: user.preferences ? user.preferences.animations : false
+      });
 
-        // Set user info
-        this.setIndexState('user', {
-          userID: user.ID,
-          fullName: user.firstName + ' ' + user.lastName,
-          email: user.email,
-          role: user.role,
-          masker: has(res, 'masker') ? true : false,
-          theme: user.preferences ? user.preferences.cloudTheme : 'light',
-          animations: user.preferences ? user.preferences.animations : false
-        });
-
-        // Get init collection of resources
-        this.initResources();
-      }
+      // Get init collection of resources
+      this.initResources();
     }
   }
 
   initResources() {
-    // Get the org
-    this.props.getResource('org', {id: ['org']});
   }
 
   loader(msg) {
@@ -160,7 +149,7 @@ class App extends Component {
 
   logoutCallback() {
     this.props.userLogout();
-    window.location.replace(ENTRY_URL);
+    window.location.replace(`${ENTRY_URL}/login/wallet`);
   }
 
   render() {
@@ -170,7 +159,8 @@ class App extends Component {
         <div id='app-root'>
           <AppContext.Provider
             value={{
-              title: `Givebox Boiler - ${this.state.org.name}`
+              title: `Givebox Wallet`,
+              user: this.state.user
             }}
           >
             <Routes
