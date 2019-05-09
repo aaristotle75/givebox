@@ -1,66 +1,66 @@
 import React, { Component } from 'react';
 import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
-import { TransitionGroup, CSSTransition } from 'react-transition-group';
-import { util, ModalRoute } from 'givebox-lib';
-import Sidebar from 'common/Sidebar';
-import Header from 'common/Header';
+import { util } from 'givebox-lib';
+import ModalRoutes from './ModalRoutes';
+import LeftSide from 'common/LeftSide';
 
 class Routes extends Component {
+
+  constructor(props) {
+    super(props);
+    this.appRef = React.createRef();
+  }
 
   render() {
 
     const {
       loadComponent,
       session,
+      access,
       authenticated
     } = this.props;
 
     if (!authenticated) return ( this.props.loader('Authenticating', 'authenticating') );
 
-    if (util.isLoading(session)) {
-      return this.props.loader('Trying to load initial resources: session and org');
+    if (util.isLoading(session) || util.isEmpty(access)) {
+      return this.props.loader('Trying to load initial resources: session');
     }
 
     return (
-      <div>
-        <ModalRoute  id='feesGlossary' component={() => loadComponent('modal/glossary/Fees', {useProjectRoot: false})} effect='3DFlipVert' style={{ width: '50%' }} />
-        <ModalRoute  id='financeGlossary' component={() => loadComponent('modal/glossary/Finance', {useProjectRoot: false})} effect='3DFlipVert' style={{ width: '50%' }} />
-        <ModalRoute  id='logout' component={() => loadComponent('modal/common/Logout', {useProjectRoot: false})} style={{ width: '50%' }} />
-        <Router>
+      <Router>
+        <div>
+          <Switch>
           <Route
-            render={({ location }) => (
-              <div className='wrapper'>
+            render={({ location, history }) => (
+              <div className='layout' ref={this.appRef}>
+                <ModalRoutes
+                  {...this.props}
+                  appRef={this.appRef}
+                  history={history}
+                  location={location} />
                 <Route
                   exact
                   path='/'
-                  render={() => <Redirect to='/dashboard' />}
+                  render={() => <Redirect to='/history' />}
                 />
-                <Header />
-                <Sidebar />
-                <div className='contentContainer'>
-                  <TransitionGroup>
-                    <CSSTransition key={location.key} classNames='fade' timeout={300}>
-                      <Switch location={location}>
-                        <Route path='/dashboard' render={(props) => loadComponent('dashboard/Dashboard')}  />
-                        {/*
-                        <Route exact path='/list' render={(props) => loadComponent('demo/ItemsList', {routeProps: props})}  />
-                        <Route exact path='/list/:itemID' render={(props) => loadComponent('demo/Item', {routeProps: props})} />
-                        <Route exact path={`/list/:itemID/:action`} render={(props) => loadComponent('demo/Item', {routeProps: props})} />
-                        <Route path='/charts' render={(props) => loadComponent('demo/Charts')}  />
-                        <Route exact path='/transactions' render={(props) => loadComponent('demo/Transactions', {routeProps: props})}  />
-                        <Route path='/about' render={(props) => loadComponent('demo/About')}  />
-                        <Route path='/contact' render={(props) => loadComponent('demo/Contact')}  />
-                        */}
-                        <Route render={(props) => loadComponent('common/Error')} />
-                      </Switch>
-                    </CSSTransition>
-                  </TransitionGroup>
+                <Route
+                  exact
+                  path='/wallet'
+                  render={() => <Redirect to='/history' />}
+                />
+                <LeftSide location={location} history={history} />
+                <div id='layout-main' className='layout-main'>
+                  <Switch location={location}>
+                    <Route parent='history' path='/history' render={(props) => loadComponent('money/Transactions', { routeProps: props })}  />
+                    <Route render={(props) => loadComponent('common/Error')} />
+                  </Switch>
                 </div>
               </div>
             )}
           />
-        </Router>
-      </div>
+          </Switch>
+        </div>
+      </Router>
     )
   }
 }

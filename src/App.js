@@ -2,18 +2,31 @@ import React, { Component } from 'react';
 import { connect } from 'react-redux';
 import Routes from './Routes';
 import Loadable from 'react-loadable';
+import Error from 'common/Error';
 import has from 'has';
 import { userLogout } from 'redux/actions';
-import { resourceProp, Loader, getResource, sendResource, reloadResource } from 'givebox-lib';
+import {
+  resourceProp,
+  Loader,
+  getResource,
+  sendResource,
+  reloadResource,
+  ModalLink,
+  util,
+  toggleModal,
+  setPrefs
+} from 'givebox-lib';
 
 export const AppContext = React.createContext();
 const ENTRY_URL = process.env.REACT_APP_ENTRY_URL;
+const ENV = process.env.REACT_APP_ENV;
 
-class App extends Component {
+class AppClass extends Component {
 
   constructor(props) {
     super(props);
     this.loadComponent = this.loadComponent.bind(this);
+    this.loadComponentLoading = this.loadComponentLoading.bind(this);
     this.authenticate = this.authenticate.bind(this);
     this.initResources = this.initResources.bind(this);
     this.setIndexState = this.setIndexState.bind(this);
@@ -27,6 +40,7 @@ class App extends Component {
       user: {},
       authenticated: false
     }
+    this.modalRef = React.createRef();
   }
 
   componentDidMount() {
@@ -55,37 +69,33 @@ class App extends Component {
   * @param (object) res Response from the session requeset
   * @param (object) err Error from the request
   */
-  authenticate(res, err) {
+  authenticate(res, err, debug = false) {
     if (err) {
       // If no session is found redirect the user to sign in
       console.error('Err No session found redirect to ', ENTRY_URL);
-      window.location.replace(ENTRY_URL);
+      if (!debug) window.location.replace(ENTRY_URL);
     } else {
-      console.log(res.user.role);
-      if (res.user.role !== 'user') {
-        window.location.replace(ENTRY_URL);
-      } else {
-        // Authenticate
-        this.setIndexState('authenticated', true);
+      // Authenticate
+      this.setState({authenticated: true});
+      let user = res.user;
 
-        // Get user info
-        let user = res.user;
-        this.props.resourceProp('userID', user.ID);
+      this.props.resourceProp('userID', user.ID);
 
-        // Set user info
-        this.setIndexState('user', {
-          userID: user.ID,
-          fullName: user.firstName + ' ' + user.lastName,
-          email: user.email,
-          role: user.role,
-          masker: has(res, 'masker') ? true : false,
-          theme: user.preferences ? user.preferences.cloudTheme : 'light',
-          animations: user.preferences ? user.preferences.animations : false
-        });
+      // set access
+      const access = {
+        userID: user.ID,
+        initial: user.firstName.charAt(0).toUpperCase() + user.lastName.charAt(0).toUpperCase(),
+        firstName: user.firstName,
+        lastName: user.lastName,
+        fullName: user.firstName + ' ' + user.lastName,
+        email: user.email,
+        imageURL: user.imageURL
+      };
 
-        // Get init collection of resources
-        this.initResources();
-      }
+      this.props.resourceProp('access', access);
+
+      // Get init collection of resources
+      this.initResources();
     }
   }
 
@@ -96,6 +106,16 @@ class App extends Component {
     return (
       <Loader className={className} msg={msg} forceText={process.env.NODE_ENV !== 'production' && true} />
     )
+  }
+
+  loadComponentLoading(props) {
+    if (props.error) {
+      return <Error />;
+    } else if (props.pastDelay) {
+      return this.loader('Loading Component', 'loadComponent');
+    } else {
+      return null;
+    }
   }
 
   /**
@@ -114,7 +134,7 @@ class App extends Component {
       routeProps: null,
       props: null,
       callback: null,
-      className: 'content'
+      className: ''
     };
     const options = { ...defaults, ...opt };
     let modal = false;
@@ -123,50 +143,60 @@ class App extends Component {
     // If module path begins with modal/ display as modal
     if (moduleToLoad.indexOf('modal/') !== -1) {
       modal = true;
-      options.className = 'modalWrapper';
+      options.className = opt.className ? `modalWrapper ${opt.className}` : 'modalWrapper';
       moduleToLoad = moduleToLoad.replace('modal/', '');
+    } else {
+      options.className = opt.className ? `layout-main-wrapper ${opt.className}` : 'layout-main-wrapper';
     }
 
     const Component = Loadable({
       loader: () => import(`/${moduleToLoad}`),
-      loading: () => modal ? '' : this.loader(`Trying to load component ${moduleToLoad}`)
+      loading: modal ? () => '' : this.loadComponentLoading
     });
+
     return (
-      <div id={`root-${options.className}`} className={options.className}>
+      <div id={`content-root`} className={options.className}>
         <Component
           {...options.props}
           loader={this.loader}
           routeProps={options.routeProps}
           mobile={this.state.mobile}
+          isModal={modal}
           loadComponent={this.loadComponent}
           logout={this.logout}
+          user={this.state.user}
+          org={this.state.org}
+          isSuper={this.state.user.role === 'super' ? true : false}
+          isDev={process.env.REACT_APP_ENV === 'local' ? true : false}
         />
       </div>
     )
   }
 
   logout() {
+    const endpoint = 'session';
     this.props.sendResource(
-      'session', {
+      endpoint, {
         method: 'delete',
         callback: this.logoutCallback
     });
   }
 
   logoutCallback() {
+    const redirect = ENTRY_URL;
     this.props.userLogout();
-    window.location.replace(`${ENTRY_URL}/login/wallet`);
+    window.location.replace(redirect);
   }
 
   render() {
 
     return (
-      <div className={this.state.mobile ? 'mobile' : 'desktop'}>
+      <div className={`${this.state.mobile ? 'mobile' : 'desktop'}`}>
         <div id='app-root'>
           <AppContext.Provider
             value={{
-              title: `Givebox Wallet`,
-              user: this.state.user
+              user: this.state.user,
+              org: this.state.org
             }}
           >
             <Routes
@@ -177,7 +207,8 @@ class App extends Component {
             />
           </AppContext.Provider>
         </div>
-        <div id='modal-root'></div>
+        <div id='modal-root' ref={this.modalRef}></div>
+        <div id='calendar-root'></div>
       </div>
     );
   }
@@ -186,14 +217,18 @@ class App extends Component {
 function mapStateToProps(state) {
   return {
     session: state.resource.session ? state.resource.session : {},
-    org: state.resource.org ? state.resource.org : {}
+    access: state.resource.access ? state.resource.access : {}
   }
 }
 
-export default connect(mapStateToProps, {
+const App = connect(mapStateToProps, {
   getResource,
   sendResource,
   reloadResource,
   resourceProp,
-  userLogout
-})(App);
+  userLogout,
+  toggleModal,
+  setPrefs
+})(AppClass);
+
+export default App;
