@@ -66,7 +66,7 @@ class Fundraisers extends Component {
               <div className='image'>
                 { value.imageURL ? <img src={util.imageUrlWithStyle(value.imageURL, 'medium')} alt={value.title} /> :
                 <div className='imagePlaceholder'><span className='icon icon-instagram'></span></div> }
-                <ModalLink id={`share`} className='imageCover' opts={{ id: value.articleID, kind: 'fundraiser' }}><div className='imageLink'>Share</div></ModalLink>                
+                <ModalLink id={`share`} className='imageCover' opts={{ id: value.articleID, kind: 'fundraiser' }}><div className='imageLink'>Share</div></ModalLink>
               </div>
             </div>
             <div className='column33'>
@@ -145,7 +145,7 @@ class Fundraisers extends Component {
           <div className='container'>
             {this.props.isFetching && this.props.loader(`Loading data`)}
             <Collapse
-              label={`Fundraisers List`}
+              label={`Peer-2-Peer Fundraisers List`}
               iconPrimary='list'
             >
               <div className='sectionContainer'>

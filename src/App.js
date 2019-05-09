@@ -73,7 +73,7 @@ class AppClass extends Component {
     if (err) {
       // If no session is found redirect the user to sign in
       console.error('Err No session found redirect to ', ENTRY_URL);
-      if (!debug) window.location.replace(ENTRY_URL);
+      if (!debug) window.location.replace(`${ENTRY_URL}/login/wallet`);
     } else {
       // Authenticate
       this.setState({authenticated: true});

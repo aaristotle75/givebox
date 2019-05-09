@@ -46,7 +46,7 @@ class Routes extends Component {
                 <Route
                   exact
                   path='/wallet'
-                  render={() => <Redirect to='/history' />}
+                  render={() => <Redirect to='/' />}
                 />
                 <Route
                   exact
