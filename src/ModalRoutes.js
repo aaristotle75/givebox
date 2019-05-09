@@ -27,6 +27,9 @@ export default class ModalRoutes extends Component {
         <ModalRoute appRef={appRef}  id='payMethods' component={(props) => this.props.loadComponent('modal/money/PayMethods', {useProjectRoot: false, props: props })} className='flexWrapper' effect='scaleUp' style={{ width: '60%' }} />
         <ModalRoute appRef={appRef}  id='payMethodForm' component={(props) => this.props.loadComponent('modal/money/PayMethodForm', {useProjectRoot: false, props: props })} className='flexWrapper' effect='scaleUp' style={{ width: '50%' }} />
 
+        {/*------ Fundraisers --------*/}
+        <ModalRoute appRef={appRef}  id='share' component={(props) => this.props.loadComponent('modal/campaigns/Share', {useProjectRoot: false, props: props })} effect='scaleUp' style={{ width: '60%' }} />
+
       </div>
     )
   }

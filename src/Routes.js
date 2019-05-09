@@ -48,10 +48,17 @@ class Routes extends Component {
                   path='/wallet'
                   render={() => <Redirect to='/history' />}
                 />
+                <Route
+                  exact
+                  path='/settings'
+                  render={() => <Redirect to='/settings/myprofile' />}
+                />
                 <LeftSide location={location} history={history} />
                 <div id='layout-main' className='layout-main'>
                   <Switch location={location}>
-                    <Route parent='history' path='/history' render={(props) => loadComponent('money/Transactions', { routeProps: props })}  />
+                    <Route exact parent='history' path='/history' render={(props) => loadComponent('money/Transactions', { routeProps: props })}  />
+                    <Route exact parent='fundraisers' path='/fundraisers' render={(props) => loadComponent('campaigns/Fundraisers', { routeProps: props })}  />
+                    <Route exact parent='settings' path='/settings/myprofile' render={(props) => loadComponent('settings/MyAccount', { routeProps: props })}  />
                     <Route render={(props) => loadComponent('common/Error')} />
                   </Switch>
                 </div>

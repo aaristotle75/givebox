@@ -6,12 +6,12 @@ import {
   sendResource,
   util,
   ModalLink,
-  types,
-  GBLink,
+  Image,
   Form,
   _v,
   Collapse
 } from 'givebox-lib';
+import Header from 'common/Header';
 import has from 'has';
 
 class MyAccountForm extends Component {
@@ -85,11 +85,9 @@ class MyAccountForm extends Component {
 
     return (
       <div>
-        <h2 className='pageTitle'>My Account</h2>
         <Collapse
           iconPrimary={'info'}
           label={'My Profile Details'}
-          id={`myaccountDetails`}
         >
           <div className='formSectionContainer'>
             <div className='formSection'>
@@ -106,7 +104,6 @@ class MyAccountForm extends Component {
           default={'closed'}
           iconPrimary={'shield'}
           label={'Change Password'}
-          id={'myaccountPassword'}
         >
           <div className='formSectionContainer'>
             <div className='formSection'>
@@ -120,7 +117,6 @@ class MyAccountForm extends Component {
           default={'closed'}
           iconPrimary={'book-open'}
           label={'Additional Details'}
-          id={`myaccountAdditionalDetails`}
         >
           <div className='formSectionContainer'>
             <div className='formSection'>
@@ -159,10 +155,16 @@ export default class MyAccount extends Component {
     const resource = 'singleUser';
 
     return (
-      <div className={`${this.props.isModal ? 'modalFormContainer' : 'settingsPage'}`}>
-        <Form name={resource}>
-          <FormConnect {...this.props} resource={resource} />
-        </Form>
+      <div className='settingsPage'>
+        <Header noSubNav={true} noFixed={true} loader={this.props.loader} location={this.props.routeProps.location} history={this.props.routeProps.history} />
+        <div className='mainContent'>
+          <div className='container'>
+            {this.props.isFetching && this.props.loader(`Loading data`)}
+            <Form name={resource}>
+              <FormConnect {...this.props} resource={resource} />
+            </Form>
+          </div>
+        </div>
       </div>
     )
   }

@@ -183,7 +183,7 @@ class AppClass extends Component {
   }
 
   logoutCallback() {
-    const redirect = ENTRY_URL;
+    const redirect = `${ENTRY_URL}/login/wallet`;
     this.props.userLogout();
     window.location.replace(redirect);
   }

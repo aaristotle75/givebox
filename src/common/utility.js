@@ -3,7 +3,23 @@ import { util } from 'givebox-lib';
 
 export const navArray = [
   { parent: 'history', name: 'History', path: '/history', icon: 'credit-card' },
-  { parent: 'settings', name: 'Settings', path: '/settings', icon: 'sliders' },
+  { parent: 'fundraisers', name: 'Fundraisers', path: '/fundraisers', icon: 'box' },  
+  {
+    parent: 'settings',
+    name: 'Settings',
+    path: '/settings',
+    icon: 'sliders',
+    children: [
+      {
+        parent: 'settings',
+        child: 'myprofile',
+        name: 'My Profile',
+        path: '/settings/myprofile',
+        fileName: 'MyAccount',
+        icon: 'user'
+      }
+    ]
+  },
 ];
 
 export const groupBy = (xs, key) => {
