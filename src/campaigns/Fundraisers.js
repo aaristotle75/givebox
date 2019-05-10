@@ -24,10 +24,7 @@ class Fundraisers extends Component {
   }
 
   componentDidMount() {
-    this.props.getResource('fundraisers', {
-      search: {
-        filter: `volunteerID:${this.props.userID}`
-      },
+    this.props.getResource('userFundraisers', {
       reload: true
     });
   }
@@ -167,11 +164,11 @@ class Fundraisers extends Component {
 
 function mapStateToProps(state, props) {
 
-  const fundraisers = state.resource.fundraisers ? state.resource.fundraisers : {};
+  const fundraisers = state.resource.userFundraisers ? state.resource.userFundraisers : {};
 
   return {
     fundraisers,
-    resourceName: 'fundraisers',
+    resourceName: 'userFundraisers',
     isFetching: has(fundraisers, 'isFetching') ? fundraisers.isFetching : false,
     userID: util.getValue(state.resource, 'userID', 0)
   }
