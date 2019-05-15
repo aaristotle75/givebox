@@ -119,10 +119,10 @@ class Transactions extends Component {
           <div className='subNavContent'>
             <div className='flexBetween'>
               <div className='leftSide'>
-                <Image maxSize={'125px'} url={`https://s3-us-west-1.amazonaws.com/givebox/public/images/backgrounds/settings-money.png`} size='inherit' alt={`Transactions`} />
+                <Image maxSize={'125px'} url={`https://s3-us-west-1.amazonaws.com/givebox/public/images/backgrounds/wallet-transactions-sm.png`} size='inherit' alt={`Transactions`} />
                 <div className='balance'>
                   <h1><span className='moneyAmount'><span className='symbol'>$</span>{dollarAmount}<span className='centAmount'><span className='centSymbol'>.</span>{centAmount}</span></span></h1>
-                  <ModalLink id='financeGlossary' className='link glossary'>Transactions Total</ModalLink>
+                  <ModalLink id='financeGlossary' className='link glossary'>Total</ModalLink>
                 </div>
                 <ActionsMenu
                   label='Manage Money'

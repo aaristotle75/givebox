@@ -120,10 +120,10 @@ class Fundraisers extends Component {
           <div className='subNavContent'>
             <div className='flexBetween'>
               <div className='leftSide'>
-                <Image maxSize={'125px'} url={`https://s3-us-west-1.amazonaws.com/givebox/public/images/backgrounds/raise-fundraiser.png`} size='inherit' alt={'Fundraisers'} />
+                <Image maxSize={'125px'} url={`https://s3-us-west-1.amazonaws.com/givebox/public/images/backgrounds/wallet-peer2peer-sm.png`} size='inherit' alt={'Fundraisers'} />
                 <div className='balance'>
                   <h1>{balance}</h1>
-                  <ModalLink id='financeGlossary' className='link glossary'>Fundraisers you created</ModalLink>
+                  <ModalLink id='financeGlossary' className='link glossary'>Peer-2-Peer fundraisers you created</ModalLink>
                 </div>
               </div>
               <div className='right'>
