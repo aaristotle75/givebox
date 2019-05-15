@@ -56,7 +56,7 @@ class Routes extends Component {
                 <LeftSide location={location} history={history} />
                 <div id='layout-main' className='layout-main'>
                   <Switch location={location}>
-                    <Route exact parent='money' path='/money' render={(props) => loadComponent('money/Transactions', { routeProps: props })}  />
+                    <Route exact parent='transactions' path='/transactions' render={(props) => loadComponent('money/Transactions', { routeProps: props })}  />
                     <Route exact parent='fundraisers' path='/fundraisers' render={(props) => loadComponent('campaigns/Fundraisers', { routeProps: props })}  />
                     <Route exact parent='settings' path='/settings/myprofile' render={(props) => loadComponent('settings/MyAccount', { routeProps: props })}  />
                     <Route render={(props) => loadComponent('common/Error')} />

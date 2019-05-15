@@ -2224,3 +2224,7 @@ button.importGmail:hover {
     @include filter(brightness(100%));
   }
 }
+
+.myaccount .dropzone {
+  border-radius: 50%;
+}

@@ -2,7 +2,7 @@ import React from 'react';
 import { util } from 'givebox-lib';
 
 export const navArray = [
-  { parent: 'money', name: 'Money', path: '/money', icon: 'credit-card' },
+  { parent: 'transactions', name: 'Transactions', path: '/transactions', icon: 'credit-card' },
   { parent: 'fundraisers', name: 'Peer-2-Peer', path: '/fundraisers', icon: 'share-2' },
   {
     parent: 'settings',

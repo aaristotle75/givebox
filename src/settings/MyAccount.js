@@ -84,7 +84,7 @@ class MyAccountForm extends Component {
     const data = item.data || {};
 
     return (
-      <div>
+      <div className='myaccount'>
         <Collapse
           iconPrimary={'info'}
           label={'My Profile Details'}
@@ -92,7 +92,7 @@ class MyAccountForm extends Component {
           <div className='formSectionContainer'>
             <div className='formSection'>
               <div className='flexCenter'>
-                {this.props.uploadField('imageURL', { value: util.getValue(data, 'imageURL'), uploadLabel: 'Upload Avatar or Photo' })}
+                {this.props.uploadField('imageURL', { value: util.getValue(data, 'imageURL'), uploadLabel: 'Upload Photo' })}
               </div>
               {this.props.textField('firstName', { placeholder: 'Add First Name', label: 'First Name', value: util.getValue(data, 'firstName') })}
               {this.props.textField('lastName', { placeholder: 'Add Last Name', label: 'Last Name', value: util.getValue(data, 'lastName') })}
