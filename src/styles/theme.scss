@@ -586,7 +586,7 @@ button.glossary:hover {
 
 .balance {
   display: flex;
-  align-items: flex-start;
+  align-items: center;
   flex-direction: column;
 
   h1 {
@@ -667,7 +667,7 @@ button.glossary:hover {
   overflow-x: hidden;
   backface-visibility: hidden;
   @include transition(width .5s);
-  z-index: 3002;
+  z-index: 1000;
 }
 
 .layout-left .layout-left-content {
@@ -815,11 +815,27 @@ ul.selectable {
     .icon {
       color: $white;
     }
+    .date {
+      color: $white;
+    }
+  }
+
+  .imgWrapper {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
   }
 
   img {
-    border-radius: 50%;
     display: inline;
+    margin: 0 auto;
+    height: 100%;
+    width: auto;
   }
 
   .liContent {
@@ -828,7 +844,9 @@ ul.selectable {
 
   .imagePlaceholder {
     position: relative;
-    display: inline-block;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     height: 50px;
     width: 50px;
     border-radius: 20px;

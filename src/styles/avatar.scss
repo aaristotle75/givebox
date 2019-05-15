@@ -4,6 +4,8 @@
   position: relative;
 
   button.link {
+    display: flex;
+    align-items: center;
     color: $mainColor;
     font-size: $large-text-size;
     font-weight: 400;
@@ -43,26 +45,31 @@
   }
 
   .avatarImage {
-    display: inline-block;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
     width: 45px;
     height: 45px;
     border: 1px solid $light-med-gray;
     margin: 0 10px;
+    overflow: hidden;
 
     img {
-      margin: 4px 0 0 0px;
-      border-radius: 50%;
-      width: 35px;
-      height: 35px;
-      vertical-align: middle;
+      display: inline;
+      margin: 0 auto;
+      height: 100%;
+      width: auto;
     }
   }
 }
 
 .avatarLink .defaultOrgImg {
   position: relative;
-  display: inline-block;
+  display: flex;
+  justify-content: center;
+  align-items: center;
   margin: 0 10px;
   height: 40px;
   width: 40px;
@@ -73,13 +80,7 @@
   text-align: center;
 
   .icon {
-    position: absolute;
-    left:0; right:0;
-    top: 9px; bottom:0;
-    margin: auto;
     font-size: $normal-text-size;
-    max-width:100%;
-    max-height:100%;
   }
 }
 
@@ -100,19 +101,22 @@
   h4 { margin-bottom: 0px; }
 
   .avatarImage {
-    display: block;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
     border-radius: 50%;
     width: 80px;
     height: 80px;
     border: 1px solid $light-med-gray;
     text-align: center;
+    overflow: hidden;
 
     img {
-      margin: 4px 0 0 0px;
-      border-radius: 50%;
-      width: 70px;
-      height: 70px;
-      vertical-align: middle;
+      display: inline;
+      margin: 0 auto;
+      height: 100%;
+      width: auto;
     }
   }
 

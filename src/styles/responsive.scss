@@ -361,6 +361,7 @@
     }
 
     .layout-left-content {
+			z-index: 3002;
       width: $layout-left-width;
       @include transition(width .5s);
     }
