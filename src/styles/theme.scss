@@ -2225,6 +2225,20 @@ button.importGmail:hover {
   }
 }
 
-.myaccount .dropzone {
-  border-radius: 50%;
+.myaccount {
+  .dropzone {
+  }
+
+  .imgWrapper {
+    overflow: hidden;
+    position: relative;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    width: 45px;
+    height: 45px;
+    border-radius: 50%;
+  }
+
+
 }
