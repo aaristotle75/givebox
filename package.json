@@ -1,5 +1,5 @@
 {
-  "name": "givebox-wallet",
+  "name": "givebox-share",
   "version": "0.1.0",
   "private": true,
   "dependencies": {
@@ -12,8 +12,8 @@
     "universal-cookie": "^3.1.0"
   },
   "scripts": {
-    "start": "PORT=4013 react-app-rewired start",
-    "start-pc": "set PORT=4013&& react-app-rewired start",
+    "start": "PORT=4015 react-app-rewired start",
+    "start-pc": "set PORT=4015&& react-app-rewired start",
     "build": "react-app-rewired build",
     "build:staging": "env-cmd .env.staging npm run build",
     "test": "react-app-rewired test",
