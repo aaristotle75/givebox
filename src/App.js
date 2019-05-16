@@ -30,13 +30,10 @@ class AppClass extends Component {
     this.authenticate = this.authenticate.bind(this);
     this.initResources = this.initResources.bind(this);
     this.setIndexState = this.setIndexState.bind(this);
-    this.logout = this.logout.bind(this);
-    this.logoutCallback = this.logoutCallback.bind(this);
     this.state = {
       windowWidth: window.innerWidth,
       windowHeight: window.innerHeight,
       mobile: window.innerWidth < props.mobileBreakpoint ? true : false,
-      org: {},
       user: {},
       authenticated: false
     }
@@ -44,10 +41,12 @@ class AppClass extends Component {
   }
 
   componentDidMount() {
-		const template = document.querySelector('meta[name="config:template"]')['content'];
-		console.log('did mount', template);
+		const template = document.querySelector('meta[name="config:template"]');
+    if (template) {
+		    console.log('did mount', template['content']);
+    }
     // Entry point - check if session exists and authenticate
-    //this.props.getResource('session', {callback: this.authenticate});
+    this.props.getResource('session', {callback: this.authenticate});
   }
 
   /**
@@ -74,8 +73,7 @@ class AppClass extends Component {
   authenticate(res, err, debug = false) {
     if (err) {
       // If no session is found redirect the user to sign in
-      console.error('Err No session found redirect to ', ENTRY_URL);
-      if (!debug) window.location.replace(`${ENTRY_URL}/login/wallet`);
+      console.error('New session');
     } else {
       // Authenticate
       this.setState({authenticated: true});
@@ -165,29 +163,12 @@ class AppClass extends Component {
           mobile={this.state.mobile}
           isModal={modal}
           loadComponent={this.loadComponent}
-          logout={this.logout}
           user={this.state.user}
-          org={this.state.org}
           isSuper={this.state.user.role === 'super' ? true : false}
           isDev={process.env.REACT_APP_ENV === 'local' ? true : false}
         />
       </div>
     )
-  }
-
-  logout() {
-    const endpoint = 'session';
-    this.props.sendResource(
-      endpoint, {
-        method: 'delete',
-        callback: this.logoutCallback
-    });
-  }
-
-  logoutCallback() {
-    const redirect = `${ENTRY_URL}/login/wallet`;
-    this.props.userLogout();
-    window.location.replace(redirect);
   }
 
   render() {
@@ -197,8 +178,7 @@ class AppClass extends Component {
         <div id='app-root'>
           <AppContext.Provider
             value={{
-              user: this.state.user,
-              org: this.state.org
+              user: this.state.user
             }}
           >
             <Routes
