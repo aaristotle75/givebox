@@ -1,7 +1,7 @@
 import React, { Component } from 'react';
 import { util } from 'givebox-lib';
 
-class Org extends Component {
+class PaymentForm extends Component {
 
   componentWillUnmount() {
   }
@@ -10,10 +10,10 @@ class Org extends Component {
 
     return (
       <div className='flexCenter'>
-        Organization Page {this.props.id}
+        GBX Payment Form
       </div>
     )
   }
 }
 
-export default Org;
+export default PaymentForm;

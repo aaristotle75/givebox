@@ -1,7 +1,6 @@
 import React, { Component } from 'react';
-import { BrowserRouter as Router, Route, Switch } from 'react-router-dom';
+import { BrowserRouter as Router, Route, Switch, Redirect } from 'react-router-dom';
 import { util } from 'givebox-lib';
-import Redirect from 'common/Redirect';
 import ModalRoutes from './ModalRoutes';
 
 class Routes extends Component {
@@ -42,8 +41,8 @@ class Routes extends Component {
                   location={location} />
                 <div id='layout-main' className='layout-main'>
                   <Switch location={location}>
-                    <Route exact path='/' component={Redirect} />
-                    <Route exact parent='gbx' path='/:id' render={(props) => loadComponent('common/Gateway', { routeProps: props })}  />
+                    <Route exact path='/' render={() => <Redirect to={'/demo'}/> } />
+                    <Route exact parent='gbx' path='/demo' render={(props) => loadComponent('demo/PaymentForm', { routeProps: props })}  />
                     <Route render={(props) => loadComponent('common/Error')} />
                   </Switch>
                 </div>
