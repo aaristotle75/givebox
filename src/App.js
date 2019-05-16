@@ -4,7 +4,6 @@ import Routes from './Routes';
 import Loadable from 'react-loadable';
 import Error from 'common/Error';
 import has from 'has';
-import { userLogout } from 'redux/actions';
 import {
   resourceProp,
   Loader,
@@ -208,7 +207,6 @@ const App = connect(mapStateToProps, {
   sendResource,
   reloadResource,
   resourceProp,
-  userLogout,
   toggleModal,
   setPrefs
 })(AppClass);
