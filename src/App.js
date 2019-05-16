@@ -44,8 +44,10 @@ class AppClass extends Component {
   }
 
   componentDidMount() {
+		const template = document.querySelector('meta[name="config:template"]')['content'];
+		console.log('did mount', template);
     // Entry point - check if session exists and authenticate
-    this.props.getResource('session', {callback: this.authenticate});
+    //this.props.getResource('session', {callback: this.authenticate});
   }
 
   /**

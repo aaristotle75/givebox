@@ -31,7 +31,6 @@
   "devDependencies": {
     "ajv": "^6.0.0",
     "axios": "^0.18.0",
-    "babel-loader": "^8.0.5",
     "env-cmd": "^8.0.2",
     "eslint-config-react-app": "^3.0.8",
     "has": "^1.0.3",
