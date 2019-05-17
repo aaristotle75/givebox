@@ -4,11 +4,16 @@ import {
 
 import { gbx } from './redux/reducers';
 
+import Payment from './payment/Payment';
+
 export {
 
   // actions
   testAction,
 
   // reducers
-  gbx
+  gbx,
+
+  // Payment
+  Payment
 };

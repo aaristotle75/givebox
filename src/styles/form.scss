@@ -1,3 +1,20 @@
 @import 'variables.scss';
 
 // Share specific form
+.dropdown.floating-label {
+  label {
+    top: calc(50% - 35px)
+  }
+}
+
+.dropdown button {
+  padding-top: 5px;
+  height: 44px;
+  @media screen and (max-width: $mobile-width) {
+    font-size: 16px;
+  }
+}
+
+.dropdown .icon {
+  top: 14px;
+}

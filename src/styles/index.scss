@@ -1,11 +1,7 @@
 @import 'variables.scss';
-@import '../../node_modules/givebox-lib/dist/styles/theme.scss';
 @import '../../node_modules/givebox-lib/dist/styles/form.scss';
-@import '../../node_modules/givebox-lib/dist/styles/avatar.scss';
-@import 'theme.scss';
-@import 'avatar.scss';
-@import 'paginate.scss';
-@import 'block.scss';
 @import 'form.scss';
+@import '../../node_modules/givebox-lib/dist/styles/theme.scss';
+@import 'theme.scss';
 @import '../../node_modules/givebox-lib/dist/styles/responsive.scss';
 @import 'responsive.scss';
