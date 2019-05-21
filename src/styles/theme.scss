@@ -3,9 +3,32 @@
 // share theme specific
 .gbxPaymentForm {
 
-
-
   .column {
     display: inline-block;
   }
+}
+
+
+.dropdown.floating-label {
+  label {
+    top: calc(50% - 35px)
+  }
+}
+
+.dropdown .label:not(button) {
+    font-size: 16px;
+}
+
+.dropdown button {
+  padding-top: 5px;
+  height: 29px;
+  font-size: 16px;
+}
+
+.dropdown .icon {
+  top: 10px;
+}
+
+label, .label {
+  font-size: 12px;
 }

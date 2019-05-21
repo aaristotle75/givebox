@@ -1,20 +1,47 @@
 @import 'variables.scss';
+$baseFontSize: 16px;
 
 // Share specific form
-.dropdown.floating-label {
-  label {
-    top: calc(50% - 35px)
-  }
+.input-group:not(.hidden) {
+  padding: 10px 0;
 }
 
-.dropdown button {
-  padding-top: 5px;
-  height: 44px;
-  @media screen and (max-width: $mobile-width) {
-    font-size: 16px;
-  }
+input {
+  height: 25px;
+  font-size: $baseFontSize;
 }
 
-.dropdown .icon {
-  top: 14px;
+input::-webkit-input-placeholder {
+  font-size: $baseFontSize;
+  font-family: $font-family;
+  color: $light-med-gray;
+}
+input::-moz-placeholder {
+  font-size: $baseFontSize;
+  color: $light-med-gray;
+}
+input::-ms-input-placeholder {
+  font-size: $baseFontSize;
+  color: $light-med-gray;
+}
+
+.input-bottom.error,
+.input-bottom.active {
+  height: 1px;
+}
+
+.creditCard .cardType {
+  top: 0px;
+}
+
+.creditCard .checkmark {
+  top: 15px;
+}
+
+
+.richtext-embed {
+  .RichEditor-root {
+    margin-top: 0 !important;
+    padding: 20px 0 !important;
+  }
 }
