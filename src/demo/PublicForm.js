@@ -8,7 +8,8 @@ import {
   Form,
   types,
   Collapse,
-  toggleModal
+  toggleModal,
+  GBLink
 } from 'givebox-lib';
 import Moment from 'moment';
 import { PaymentForm } from '../lib';
@@ -17,11 +18,17 @@ class PublicForm extends Component {
 
   constructor(props) {
     super(props);
+    this.saveButton = this.saveButton.bind(this);
     this.state = {
     };
   }
 
   componentDidMount() {
+  }
+
+  saveButton() {
+    const form = document.getElementById(`gbxForm-form-saveButton`);
+    if (form) form.click();
   }
 
   render() {
@@ -41,6 +48,7 @@ class PublicForm extends Component {
         <PaymentForm
           {...this.props}
         />
+        <GBLink className='button' onClick={() => this.saveButton()}>Submit Form</GBLink>
       </div>
     )
   }

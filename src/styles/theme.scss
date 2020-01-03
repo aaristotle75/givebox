@@ -1,11 +1,25 @@
 @import 'variables.scss';
 
+/* Modal */
+.modalTop,
+.modalBottom {
+  display: none;
+}
+
+.modalContainer {
+  padding: 20px 10px;
+}
+
 .mobileFriendly {
   margin: 100px 0;
 }
 
 // share theme specific
 .gbxPaymentForm {
+
+  .creditCard-group .cardsAccepted {
+      top: -35px;
+  }
 
   .column {
     display: inline-block;
