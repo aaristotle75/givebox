@@ -4,7 +4,7 @@ import {
 
 import { gbx } from './redux/reducers';
 
-import Payment from './payment/Payment';
+import PaymentForm from './payment/PaymentForm';
 import SendEmail from './payment/SendEmail';
 
 export {
@@ -16,6 +16,6 @@ export {
   gbx,
 
   // Payment
-  Payment,
+  PaymentForm,
   SendEmail
 };

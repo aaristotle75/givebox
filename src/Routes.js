@@ -42,7 +42,8 @@ class Routes extends Component {
                 <div id='layout-main' className='layout-main'>
                   <Switch location={location}>
                     <Route exact path='/' render={() => <Redirect to={'/demo'}/> } />
-                    <Route exact parent='gbx' path='/demo' render={(props) => loadComponent('demo/PaymentForm', { routeProps: props })}  />
+                    <Route exact parent='gbx' path='/public' render={(props) => loadComponent('demo/PublicForm', { routeProps: props })}  />
+                    <Route exact parent='gbx' path='/private' render={(props) => loadComponent('demo/PrivateForm', { routeProps: props })}  />
                     <Route render={(props) => loadComponent('common/Error')} />
                   </Switch>
                 </div>
