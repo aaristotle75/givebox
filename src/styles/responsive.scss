@@ -1,3 +1,7 @@
 @import 'variables.scss';
 
-// Wallet responsive
+@media (max-width: 800px) {
+  .modalContent:not(.campaignForm) {
+      width: 100% !important;
+  }
+}

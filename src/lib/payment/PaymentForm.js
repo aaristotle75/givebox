@@ -7,7 +7,6 @@ import {
   Form,
   Fade
 } from 'givebox-lib';
-import has from 'has';
 import Moment from 'moment';
 
 class PaymentFormClass extends Component {
@@ -18,8 +17,13 @@ class PaymentFormClass extends Component {
     this.customOnChange = this.customOnChange.bind(this);
     this.processForm = this.processForm.bind(this);
     this.formSavedCallback = this.formSavedCallback.bind(this);
+    this.sendEmailCallback = this.sendEmailCallback.bind(this);
     this.state = {
-      loading: false
+      loading: false,
+      sendEmail: {
+        recipients: '',
+        message: util.getValue(this.props.sendEmail, 'defaultMsg', '')
+      }
     }
   }
 
@@ -83,17 +87,27 @@ class PaymentFormClass extends Component {
     //this.props.fieldProp(name, { value });
   }
 
+  sendEmailCallback(recipients, message) {
+    this.setState({
+      sendEmail: {
+        recipients,
+        message
+      }
+    });
+  }
+
   renderFields() {
 
     const {
-      customPlaceholder,
-      sendEmail,
       breakpoint,
       phone,
       address,
       work,
-      custom
+      custom,
+      sendEmail
     } = this.props;
+
+    console.log('execute sendEmail', sendEmail);
 
     const name = this.props.textField('name', { placeholder: 'Enter Name',  label: 'Name', required: true });
     const creditCard = this.props.creditCardGroup({ required: true, placeholder: 'xxxx xxxx xxxx xxxx', debug: false});
@@ -105,7 +119,7 @@ class PaymentFormClass extends Component {
     const state = this.props.dropdown('state', {label: 'State', fixedLabel: false, selectLabel: 'Enter State', options: selectOptions.states, required: address.required })
     const employer = this.props.textField('employer', { required: work.required, label: 'Employer', placeholder: 'Employer' });
     const occupation = this.props.textField('occupation', { required: work.required, label: 'Occupation', placeholder: 'Occupation' });
-    const customField = this.props.textField('note', { required: custom.required, hideLabel: true, placeholder: 'Custom Note' });
+    const customField = this.props.textField('note', { required: custom.required, hideLabel: true, placeholder: custom.placeholder });
 
     const cityStateZipGroup =
       <div>
@@ -113,6 +127,10 @@ class PaymentFormClass extends Component {
         <div className='column' style={{ width: '40%' }}>{state}</div>
         <div className='column' style={{ width: '20%' }}>{zip}</div>
       </div>
+    ;
+
+    const sendEmailLink =
+      <ModalLink id='sendEmail' opts={{ sendEmailCallback: this.sendEmailCallback, sendEmail: this.state.sendEmail, headerText: sendEmail.headerText }}>{sendEmail.linkText}</ModalLink>
     ;
 
     const fields = [
@@ -124,7 +142,8 @@ class PaymentFormClass extends Component {
       { name: 'zip', field: address.enabled ? cityStateZipGroup : zip, enabled: true, order: 6 },
       { name: 'employer', field: employer, enabled: work.enabled, order: 7 },
       { name: 'occupation', field: occupation, enabled: work.enabled, order: 8 },
-      { name: 'custom', field: customField, enabled: custom.enabled, order: 9, width: '100%' }
+      { name: 'custom', field: customField, enabled: custom.enabled, order: 9, width: '100%' },
+      { name: 'sendEmail', field: sendEmailLink, enabled: sendEmail.enabled, order: 10, width: '100%' }
     ];
 
     util.sortByField(fields, 'order', 'ASC');
@@ -157,12 +176,6 @@ class PaymentFormClass extends Component {
       </div>
     )
   }
-}
-
-PaymentFormClass.defaultProps = {
-  customField: false,
-  customPlaceholder: 'Custom Field',
-  sendEmail: false
 }
 
 function mapStateToProps(state, props) {
@@ -268,7 +281,14 @@ PaymentForm.defaultProps = {
   },
   custom: {
     enabled: false,
-    required: false
+    required: false,
+    placeholder: 'Custom placeholder'
+  },
+  sendEmail: {
+    enabled: true,
+    linkText: 'Tell your friends link',
+    headerText: 'Tell your friends header!',
+    defaultMsg: ''
   }
 }
 

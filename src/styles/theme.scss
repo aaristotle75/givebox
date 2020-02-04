@@ -1,6 +1,10 @@
 @import 'variables.scss';
 
 /* Modal */
+.modal .modalWrapper {
+  padding-top: 0px;
+}
+
 .modalTop,
 .modalBottom {
   display: none;
@@ -49,4 +53,13 @@
 
 label, .label {
   font-size: 12px;
+}
+
+// Rich Text Editor
+.RichEditor-root {
+  font-size: 1em !important;
+}
+
+.RichEditor-controls {
+  font-size: .83em !important;
 }

@@ -47,6 +47,10 @@ class PublicForm extends Component {
       <div className='mobileFriendly'>
         <PaymentForm
           {...this.props}
+          phone={{ enabled: true, required: false }}
+          address={{ enabled: true, required: false }}
+          work={{ enabled: true, required: false }}
+          custom={{ enabled: true, required: false, placeholder: 'My custom note placeholder' }}
         />
         <GBLink className='button' onClick={() => this.saveButton()}>Submit Form</GBLink>
       </div>
