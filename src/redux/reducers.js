@@ -1,10 +1,10 @@
 import { combineReducers } from 'redux';
 import  * as types  from './actionTypes';
-import { app, resource, send, modal, preferences } from 'givebox-lib';
+import { app, resource, send, modal, preferences, custom } from 'givebox-lib';
 import { gbx } from '../lib/redux/reducers';
 
 const appReducer = combineReducers({
-  gbx, preferences, app, resource, send, modal
+  gbx, preferences, app, resource, send, modal, custom
 })
 
 const rootReducers = (state, action) => {

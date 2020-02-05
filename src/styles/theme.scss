@@ -18,8 +18,14 @@
   margin: 100px 0;
 }
 
-// share theme specific
+// theme specific
 .gbxPaymentForm {
+
+  .creditCard {
+    .checkmark {
+      right: 5px;
+    }
+  }
 
   .creditCard-group .cardsAccepted {
       top: -35px;
@@ -52,6 +58,7 @@
 }
 
 label, .label {
+  white-space: nowrap;
   font-size: 12px;
 }
 

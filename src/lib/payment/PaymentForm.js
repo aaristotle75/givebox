@@ -107,15 +107,13 @@ class PaymentFormClass extends Component {
       sendEmail
     } = this.props;
 
-    console.log('execute sendEmail', sendEmail);
-
     const name = this.props.textField('name', { placeholder: 'Enter Name',  label: 'Name', required: true });
     const creditCard = this.props.creditCardGroup({ required: true, placeholder: 'xxxx xxxx xxxx xxxx', debug: false});
     const email = this.props.textField('email', {required: true, placeholder: 'Enter Email Address', label: 'Email', validate: 'email', inputMode: 'email' });
     const phoneField = this.props.textField('phone', {required: phone.required, placeholder: 'Enter Phone Number', validate: 'phone', inputMode: 'tel' });
     const addressField = this.props.textField('address', { required: address.required, label: 'Address', placeholder: 'Enter Street Address' });
     const city = this.props.textField('city', { required: address.required, label: 'City', placeholder: 'Enter City' });
-    const zip = this.props.textField('zip', { required: true, label: 'Zip Code', placeholder: 'Enter Zip Code', maxLength: 5, inputMode: 'numeric' });
+    const zip = this.props.textField('zip', { required: true, label: 'Zip Code', placeholder: 'Enter Zip', maxLength: 5, inputMode: 'numeric' });
     const state = this.props.dropdown('state', {label: 'State', fixedLabel: false, selectLabel: 'Enter State', options: selectOptions.states, required: address.required })
     const employer = this.props.textField('employer', { required: work.required, label: 'Employer', placeholder: 'Employer' });
     const occupation = this.props.textField('occupation', { required: work.required, label: 'Occupation', placeholder: 'Occupation' });
@@ -178,15 +176,6 @@ class PaymentFormClass extends Component {
   }
 }
 
-function mapStateToProps(state, props) {
-  return {
-  }
-}
-
-const PaymentFormConnect = connect(mapStateToProps, {
-})(PaymentFormClass)
-
-
 class PaymentForm extends Component {
 
 	constructor(props){
@@ -240,7 +229,7 @@ class PaymentForm extends Component {
     } = this.state;
 
     return (
-      <div className='modalFormContainer'>
+      <div className='givebox-paymentform'>
         <h2>{windowWidthChange}</h2>
         <Fade
           in={util.getValue(formState, 'error', false)}
@@ -254,8 +243,11 @@ class PaymentForm extends Component {
           errorMsg={false}
           successMsg={false}
           formPropCallback={this.formStateCallback}
+          options={{
+            color: this.props.primaryColor
+          }}
         >
-          <PaymentFormConnect
+          <PaymentFormClass
             {...this.props}
             breakpoint={breakpoint}
           />
@@ -292,4 +284,10 @@ PaymentForm.defaultProps = {
   }
 }
 
-export default PaymentForm;
+function mapStateToProps(state, props) {
+  return {
+  }
+}
+
+export default connect(mapStateToProps, {
+})(PaymentForm)

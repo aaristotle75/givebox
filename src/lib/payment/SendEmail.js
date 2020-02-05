@@ -65,6 +65,7 @@ class SendEmail extends Component {
           onChange={this.onRecipientChange}
           onBlur={this.onRecipientBlur}
           value={this.state.recipients}
+          color={this.props.primaryColor}
         />
         <RichTextField
           label='Message to recipients'
@@ -73,6 +74,7 @@ class SendEmail extends Component {
           required={false}
           onBlurEditor={this.onBlur}
           value={this.state.message}
+          color={this.props.primaryColor}
         />
         <div className='button-group center'>
           <GBLink onClick={this.cancel}>Cancel</GBLink>
@@ -88,6 +90,7 @@ SendEmail.defaultProps = {
 
 function mapStateToProps(state, props) {
   return {
+    primaryColor: state.custom.primaryColor
   }
 }
 

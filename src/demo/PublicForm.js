@@ -9,7 +9,8 @@ import {
   types,
   Collapse,
   toggleModal,
-  GBLink
+  GBLink,
+  setCustomProp
 } from 'givebox-lib';
 import Moment from 'moment';
 import { PaymentForm } from '../lib';
@@ -24,29 +25,38 @@ class PublicForm extends Component {
   }
 
   componentDidMount() {
+    this.props.getResource('article', {
+      id: [4],
+      reload: true,
+      callback: (res, err) => {
+        const givebox = util.getValue(res, 'givebox', {});
+        const primaryColor = util.getValue(givebox, 'primaryColor');
+        this.props.setCustomProp('primaryColor', primaryColor);
+      }
+    });
+    //
   }
 
   saveButton() {
     const form = document.getElementById(`gbxForm-form-saveButton`);
     if (form) form.click();
+
   }
 
   render() {
 
-    const {
-      item
-    } = this.props;
-
-    /*
-    if (util.isLoading(item, this.props.id)) {
-      return this.props.loader(`trying to load resource`);
+    if (util.isLoading(this.props.article) ||
+      !this.props.primaryColor) {
+      return this.props.loader(`trying to load article`);
     }
-    */
+
+    const article = util.getValue(this.props.article, 'data', {});
 
     return (
       <div className='mobileFriendly'>
         <PaymentForm
-          {...this.props}
+          primaryColor={this.props.primaryColor}
+          article={article}
           phone={{ enabled: true, required: false }}
           address={{ enabled: true, required: false }}
           work={{ enabled: true, required: false }}
@@ -60,7 +70,8 @@ class PublicForm extends Component {
 
 function mapStateToProps(state, props) {
   return {
-    item: state.resource[props.resource] ? state.resource[props.resource] : {}
+    primaryColor: util.getValue(state.custom, 'primaryColor'),
+    article: util.getValue(state.resource, 'article', {})
   }
 }
 
@@ -68,5 +79,6 @@ export default connect(mapStateToProps, {
   getResource,
   sendResource,
   removeResource,
-  toggleModal
+  toggleModal,
+  setCustomProp
 })(PublicForm)

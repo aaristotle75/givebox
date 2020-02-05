@@ -190,6 +190,7 @@ class AppClass extends Component {
         </div>
         <div id='modal-root' ref={this.modalRef}></div>
         <div id='calendar-root'></div>
+        <div id='help-center'></div>
       </div>
     );
   }
