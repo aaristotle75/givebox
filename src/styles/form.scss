@@ -30,6 +30,12 @@ input::-ms-input-placeholder {
   height: 1px;
 }
 
+.creditCard-group {
+  button.link {
+    font-size: $normal-text-size;
+  }
+}
+
 .creditCard .cardType {
   top: 0px;
 }
@@ -39,9 +45,23 @@ input::-ms-input-placeholder {
 }
 
 
+// Rich Text Editor
 .richtext-embed {
   .RichEditor-root {
     margin-top: 0 !important;
     padding: 20px 0 !important;
   }
+}
+
+.RichEditor-root {
+  font-weight: 400;
+  font-size: 1em !important;
+}
+
+.RichEditor-controls {
+  font-size: .83em !important;
+}
+
+.RichEditor-editor .public-DraftEditorPlaceholder-root {
+  font-weight: 300;
 }

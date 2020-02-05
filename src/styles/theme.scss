@@ -1,21 +1,11 @@
 @import 'variables.scss';
 
-/* Modal */
-.modal .modalWrapper {
-  padding-top: 0px;
-}
-
-.modalTop,
-.modalBottom {
-  display: none;
-}
-
-.modalContainer {
-  padding: 20px 10px;
-}
-
 .mobileFriendly {
   margin: 100px 0;
+}
+
+.imageComponent {
+  flex-direction: row;
 }
 
 // theme specific
@@ -36,37 +26,43 @@
   }
 }
 
-
-.dropdown.floating-label {
-  label {
-    top: calc(50% - 35px)
-  }
-}
-
-.dropdown .label:not(button) {
-    font-size: 16px;
-}
-
-.dropdown button {
-  padding-top: 5px;
-  height: 29px;
-  font-size: 16px;
-}
-
-.dropdown .icon {
-  top: 10px;
-}
-
 label, .label {
   white-space: nowrap;
   font-size: 12px;
 }
 
-// Rich Text Editor
-.RichEditor-root {
-  font-size: 1em !important;
+/*------- Button & Link -------*/
+
+button.link {
+  font-size: 14px;
+  @include default-transition(.5s);
 }
 
-.RichEditor-controls {
-  font-size: .83em !important;
+button.button {
+  border-radius: 20px;
+  font-size: 16px;
+  background-color: transparent;
+  @include default-transition(.5s);
+}
+
+button.button:hover {
+  background-color: $off-white;
+}
+
+button.gbxBtn {
+  font-weight: 300;
+  font-size: 16px;
+  color: $white;
+  background: $med-blue-gray;
+  padding: 10px 20px;
+  border-radius: 20px;
+  box-shadow: 0px 1px 2px 0px rgba(0, 0, 0, 0.55);
+  @include default-transition(.5s);
+}
+
+button.gbxBtn:hover {
+  color: $white;
+  background: $med-blue-gray;
+  opacity: .7;
+  @include default-transition(.5s);
 }

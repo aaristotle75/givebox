@@ -1,5 +1,8 @@
 @import 'variables.scss';
+@import '../../node_modules/givebox-lib/dist/styles/index.scss';
 @import '../../node_modules/givebox-lib/dist/styles/form.scss';
+@import 'modal.scss';
 @import 'form.scss';
+@import 'dropdown.scss';
 @import 'theme.scss';
 @import 'responsive.scss';

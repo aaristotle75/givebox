@@ -5,15 +5,11 @@ import {
   sendResource,
   util,
   removeResource,
-  Form,
-  types,
-  Collapse,
   toggleModal,
-  GBLink,
-  setCustomProp
+  setCustomProp,
+  GBLink
 } from 'givebox-lib';
-import Moment from 'moment';
-import { PaymentForm } from '../lib';
+import { PaymentForm, CustomBtn } from '../lib';
 
 class PublicForm extends Component {
 
@@ -62,7 +58,10 @@ class PublicForm extends Component {
           work={{ enabled: true, required: false }}
           custom={{ enabled: true, required: false, placeholder: 'My custom note placeholder' }}
         />
-        <GBLink className='button' onClick={() => this.saveButton()}>Submit Form</GBLink>
+        <div className='button-group'>
+          <CustomBtn color={this.props.primaryColor} className='gbxBtn' onClick={() => this.saveButton()}>Submit Form</CustomBtn>
+          <GBLink onClick={() => console.log('onclick callback')}>No, thanks</GBLink>
+        </div>
       </div>
     )
   }
