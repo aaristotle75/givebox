@@ -13,19 +13,9 @@ class Routes extends Component {
   render() {
 
     const {
-      loadComponent,
-      session,
-      access,
-      authenticated
+      loadComponent
     } = this.props;
 
-    /*
-    if (!authenticated) return ( this.props.loader('Authenticating', 'authenticating') );
-
-    if (util.isLoading(session) || util.isEmpty(access)) {
-      return this.props.loader('Trying to load initial resources: session');
-    }
-    */
 
     return (
       <Router>

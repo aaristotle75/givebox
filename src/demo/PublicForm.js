@@ -23,14 +23,13 @@ class PublicForm extends Component {
   componentDidMount() {
     this.props.getResource('article', {
       id: [4],
-      reload: true,
+      reload: false,
       callback: (res, err) => {
         const givebox = util.getValue(res, 'givebox', {});
         const primaryColor = util.getValue(givebox, 'primaryColor');
         this.props.setCustomProp('primaryColor', primaryColor);
       }
     });
-    //
   }
 
   saveButton() {

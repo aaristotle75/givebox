@@ -74,8 +74,6 @@ class AppClass extends Component {
       // If no session is found redirect the user to sign in
       console.error('New session');
     } else {
-      // Authenticate
-      this.setState({authenticated: true});
       let user = res.user;
 
       this.props.resourceProp('userID', user.ID);
@@ -198,8 +196,6 @@ class AppClass extends Component {
 
 function mapStateToProps(state) {
   return {
-    session: state.resource.session ? state.resource.session : {},
-    access: state.resource.access ? state.resource.access : {}
   }
 }
 
