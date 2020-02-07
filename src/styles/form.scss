@@ -3,12 +3,13 @@ $baseFontSize: 16px;
 
 // Share specific form
 .input-group:not(.hidden) {
-  padding: 10px 0;
+  padding: 15px 0;
 }
 
 input {
   height: 25px;
   font-size: $baseFontSize;
+  border-bottom: 1px solid $light-gray;
 }
 
 input::-webkit-input-placeholder {
